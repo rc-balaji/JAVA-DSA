@@ -1,15 +1,20 @@
 package ngp.edu.link;
 
-public class LinkedList {
+public class LinkedList implements ILinkedListService {
 
-	static Node head = null;
-	static Node tail = null;
-	static int size = 0;
+	Node head = null;
+	Node tail = null;
+	public int size = 0;
 
+	@Override
 	public void printList() {
 
 		Node temp = head;
-
+		
+		if(head==null) {
+			System.out.println("List is Empty");
+		}
+		
 		while (temp != null) {
 			System.out.println(temp.data);
 			temp = temp.next;
@@ -18,6 +23,7 @@ public class LinkedList {
 
 	}
 
+	@Override
 	public void printFirst() {
 		if (head != null) {
 			System.out.println(head.data);
@@ -26,6 +32,7 @@ public class LinkedList {
 		}
 	}
 
+	@Override
 	public void printEnd() {
 		if (head != null) {
 			System.out.println(tail.data);
@@ -34,10 +41,8 @@ public class LinkedList {
 		}
 	}
 
-	public int length() {
-		return size;
-	}
 
+	@Override
 	public void insertBefore(int x, int el) {
 		if (head.data == el) {
 			this.insertFirst(x);
@@ -69,6 +74,7 @@ public class LinkedList {
 		}
 	}
 
+	@Override
 	public void insertAfter(int x, int el) {
 
 		if (tail.data == el) {
@@ -101,9 +107,10 @@ public class LinkedList {
 
 	}
 
+	@Override
 	public void insertInPos(int x, int pos) {
 
-		if (0>=pos || pos > size) {
+		if (0 >= pos || pos > size) {
 			System.err.println("invalid Position or limit Exceed");
 		} else {
 			if (pos == 1) {
@@ -132,6 +139,7 @@ public class LinkedList {
 
 	}
 
+	@Override
 	public void insertEnd(int x) {
 
 		Node Newnode = new Node(x);
@@ -147,6 +155,7 @@ public class LinkedList {
 
 	}
 
+	@Override
 	public void insertFirst(int x) {
 
 		Node Newnode = new Node(x);
@@ -162,6 +171,7 @@ public class LinkedList {
 
 	}
 
+	@Override
 	public void deleteFirst() {
 
 		if (head == null) {
@@ -172,12 +182,12 @@ public class LinkedList {
 			tail = null;
 		} else {
 			size--;
-			Node temp = head;
-			head = temp.next;
+			head = head.next;
 		}
 
 	}
 
+	@Override
 	public void deleteLast() {
 
 		if (head == null) {
@@ -195,6 +205,8 @@ public class LinkedList {
 				temp = temp.next;
 			}
 
+//			tail temp = head;
+//			tail.next = null;
 			temp.next = null;
 			tail = temp;
 
@@ -202,6 +214,7 @@ public class LinkedList {
 
 	}
 
+	@Override
 	public void deleteData(int el) {
 		if (head == null) {
 			System.out.println("List is Empty");
@@ -236,6 +249,7 @@ public class LinkedList {
 		}
 	}
 
+	@Override
 	public void deleteInPos(int pos) {
 		if (head == null) {
 			System.out.println("List is Empty");
@@ -245,7 +259,7 @@ public class LinkedList {
 		} else if (pos == size) {
 			size--;
 			this.deleteLast();
-		} else if (0>=pos || pos > size) {
+		} else if (0 >= pos || pos > size) {
 			System.err.println("invalid Position or limit Exceed");
 		} else {
 			Node temp = head;
@@ -257,47 +271,48 @@ public class LinkedList {
 
 		}
 	}
-	
+
+	@Override
 	public void searchElement(int el) {
-		
-		
+
 		boolean isNonExist = true;
 		int pos = 0;
-		
-		if(head.data==el) {
+
+		if (head.data == el) {
 			isNonExist = false;
 			pos = 1;
-		}else if(tail.data==el) {
+		} else if (tail.data == el) {
 			isNonExist = false;
 			pos = size;
-		}else {
+		} else {
 			Node temp = head.next;
 			pos++;
-			while(isNonExist) {
+			while (isNonExist) {
 				pos++;
-				if(temp.data==el) {
+				if (temp.data == el) {
 					isNonExist = false;
 					continue;
-				}else if(temp.next == tail) {
+				} else if (temp.next == tail) {
 					break;
 				}
 				temp = temp.next;
 			}
-			
+
 		}
-		
-		if(!isNonExist) {
-			System.out.println("Found at Position : "+pos);
-		}else {
+
+		if (!isNonExist) {
+			System.out.println("Found at Position : " + pos);
+		} else {
 			System.out.println("Not Found!!!");
 		}
-		
-		
+
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public boolean isEmpty() {
+		if(head==null)
+			return true;
+		return false;
+	}
 
 }
