@@ -3,7 +3,7 @@ package ngp.edu.link;
 public class LinkedList implements ILinkedListService {
 
 	Node head = null;
-	Node tail = null;
+	private Node tail = null;
 	public int size = 0;
 
 	@Override
